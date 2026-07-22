@@ -67,6 +67,10 @@ async function navegar(pagina) {
                 await paginaSalario();
                 break;
 
+            case "configuracoes":
+                await paginaConfiguracoes();
+                break;
+
             default:
                 await paginaPlanejamento();
                 break;

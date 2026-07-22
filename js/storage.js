@@ -322,3 +322,13 @@ async function salvarConfiguracao(chave, valor) {
 
     return data;
 }
+
+
+async function excluirLancamentosAnteriores(dataLimite) {
+    const { error } = await supabaseClient
+        .from("lancamentos")
+        .delete()
+        .lt("competencia", dataLimite);
+
+    if (error) throw error;
+}

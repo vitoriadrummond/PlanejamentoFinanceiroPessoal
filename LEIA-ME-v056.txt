@@ -1,0 +1,14 @@
+PLANEJAMENTO FINANCEIRO PESSOAL — v0.5.6
+
+ALTERAÇÕES:
+- Página Salário com janela móvel de 12 meses (mês atual + 11 futuros).
+- Meses futuros podem ter dias trabalhados planejados manualmente.
+- Ao virar o mês, a barra lateral carrega automaticamente os dias previamente salvos.
+- Histórico salarial anterior preservado e recolhido na página Salário.
+- Salário pode ser editado e salvo novamente durante o mês.
+- DAS usa percentual configurável e é recalculado após a edição do salário.
+- Cards Horas totais e Salário bruto menores na barra lateral.
+- Nova página Configurações: valor/hora, percentual DAS, saldo inicial, reserva inicial, confirmação de exclusão e limpeza de lançamentos antigos.
+
+PUBLICAÇÃO:
+Envie o conteúdo deste ZIP diretamente para a raiz do repositório GitHub Pages.
