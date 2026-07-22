@@ -824,3 +824,45 @@ input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0
 .invoice-toolbar label { min-width:180px; }
 .invoice-total { margin-bottom:16px; }
 .invoice-total strong { font-size:1.35rem; }
+/* Resumo do salário no menu lateral */
+
+.salary-sidebar-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-top: 9px;
+    margin-bottom: 5px;
+}
+
+.salary-result-card {
+    min-width: 0;
+    padding: 8px 5px;
+    background: #f5f7fb;
+    border: 1px solid #d9e1eb;
+    border-radius: 9px;
+    text-align: center;
+}
+
+.salary-result-card span {
+    display: block;
+    margin-bottom: 4px;
+    color: #64748b;
+    font-size: 8px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.salary-result-card strong {
+    display: block;
+    margin: 0;
+    color: #172033;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.salary-sidebar-save {
+    margin-top: 8px;
+}
