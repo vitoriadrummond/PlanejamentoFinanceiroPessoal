@@ -1,0 +1,14 @@
+ATUALIZAÇÃO v0.5.1
+
+ALTERAÇÕES
+- Restaura os quatro cards do Planejamento em tamanho maior.
+- Corrige a visualização do resumo do salário no rodapé do menu lateral.
+- O resumo lateral mostra o mês, salário bruto e salário líquido.
+- Amplia o Planejamento do mês atual até dezembro de 2032.
+- Mantém o módulo Salário, reserva e correção de recorrências da versão anterior.
+
+COMO ATUALIZAR
+Substitua no GitHub todos os arquivos e pastas presentes neste ZIP.
+O arquivo js/salario.js deve permanecer no projeto.
+
+Após publicar, pressione Ctrl + Shift + R no navegador para limpar o cache.

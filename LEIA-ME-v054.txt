@@ -1,0 +1,12 @@
+PLANEJAMENTO FINANCEIRO PESSOAL — v0.5.4
+
+Alterações:
+- Botão "Ver fatura" ao lado de "Editar" na página Cartões.
+- Fatura com seleção de competência, navegação mensal, compras, parcelas e total.
+- Painel lateral do salário sem Contabilizei e sem salário líquido.
+- Salário bruto utilizado como entrada do Planejamento.
+- DAS Simples criado/atualizado automaticamente no mês seguinte como saída.
+- Cálculo do DAS: salário bruto do mês anterior x 0,0708.
+- Recorrências mantidas detalhadas e sem alteração.
+
+Para publicar, substitua os arquivos no GitHub e atualize o navegador com Ctrl + Shift + R.

@@ -1,0 +1,13 @@
+PLANEJAMENTO FINANCEIRO PESSOAL — v0.5.3
+
+Alterações:
+- Formulário de lançamento simplificado.
+- Saída pré-selecionada; Entrada disponível com um clique.
+- Campos: Natureza, Categoria, Forma de pagamento, Data, Valor e Parcelas.
+- Formas de pagamento em botões: Visa Itaú, Nubank e PIX.
+- Parcelas opcionais; o valor total é dividido entre os meses.
+- Recorrências continuam com o cadastro detalhado, sem alteração.
+- Mantidos Planejamento, Salário, Reserva, Cartões e demais recursos da v0.5.2.
+
+PUBLICAÇÃO
+Substitua todos os arquivos no repositório do GitHub Pages e atualize a página com Ctrl + Shift + R.

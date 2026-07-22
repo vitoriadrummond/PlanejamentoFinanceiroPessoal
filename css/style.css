@@ -1,0 +1,826 @@
+*{box-sizing:border-box}
+:root{
+  --bg:#eef2f7;--surface:#fff;--text:#172033;--muted:#64748b;--border:#d9e1eb;
+  --header:#182236;--primary:#2563eb;--danger:#dc2626;--success:#059669;--warn:#d97706;
+  --sidebar:220px;--shadow:0 12px 30px rgba(15,23,42,.08)
+}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+.sidebar{
+  position:fixed;inset:0 auto 0 0;width:var(--sidebar);padding:18px 12px;background:#fff;
+  border-right:1px solid var(--border);z-index:40
+}
+.brand{font-size:20px;font-weight:800;padding:8px 10px 22px}
+.nav{
+  width:100%;min-height:44px;margin-bottom:6px;padding:10px 12px;border:0;border-radius:10px;
+  background:transparent;text-align:left;color:#334155;font-weight:700;cursor:pointer
+}
+.nav:hover{background:#f1f5f9}.nav.active{background:var(--primary);color:#fff}
+.main{margin-left:var(--sidebar);min-height:100vh}
+.topbar{
+  position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:18px 20px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)
+}
+.topbar h1{margin:0;font-size:24px}.topbar p{margin:5px 0 0;color:var(--muted)}
+.topbar-actions{display:flex;align-items:center;gap:12px}
+.status{padding:8px 12px;border-radius:999px;background:#e5e7eb;font-size:13px}
+.status.ok{background:#dcfce7;color:#166534}.status.error{background:#fee2e2;color:#991b1b}
+#app{padding:16px}
+.btn{min-height:40px;padding:9px 14px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
+.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#e9eef5;color:#334155}.btn.danger{background:var(--danger);color:#fff}
+.toolbar{
+  display:grid;grid-template-columns:1.4fr repeat(5,minmax(125px,1fr)) auto;gap:9px;padding:11px;
+  background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);margin-bottom:13px
+}
+input,select,textarea{
+  width:100%;min-height:40px;padding:9px 10px;background:#fff;color:var(--text);
+  border:1px solid #cbd5e1;border-radius:9px;outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.summary-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-bottom:13px}
+.summary-card{padding:13px 14px;background:#fff;border:1px solid var(--border);border-radius:13px;box-shadow:0 7px 18px rgba(15,23,42,.05)}
+.summary-card span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.summary-card strong{font-size:17px;overflow-wrap:anywhere}
+.summary-card.entrada{border-left:5px solid #10b981}.summary-card.saida{border-left:5px solid #f97316}
+.summary-card.realizado{border-left:5px solid #2563eb}.summary-card.saldo{border-left:5px solid #7c3aed}
+.summary-card.nubank{border-left:5px solid #8b5cf6}.summary-card.itau{border-left:5px solid #f59e0b}
+.panel{background:#fff;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);overflow:hidden}
+.panel-header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.panel-header h2{margin:0;font-size:19px}.panel-header p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.planner-viewport{overflow:auto;max-height:calc(100vh - 300px)}
+.planner-grid{
+  display:grid;
+  grid-template-columns:50px 70px 120px 180px 72px repeat(12,132px);
+  width:max-content;min-width:100%
+}
+.cell{
+  min-height:50px;padding:8px 7px;border-right:1px solid #e3e8ef;border-bottom:1px solid #e3e8ef;
+  display:flex;align-items:center;background:#fff;font-size:12px
+}
+.header-cell{position:sticky;top:0;z-index:20;justify-content:center;background:var(--header);color:#fff;font-weight:700;text-align:center}
+.fixed{position:sticky;z-index:15}.header-cell.fixed{z-index:30}
+.c0{left:0}.c1{left:50px}.c2{left:120px}.c3{left:240px}.c4{left:420px;box-shadow:6px 0 10px rgba(15,23,42,.08)}
+.row-fixed{background:#fff}
+.category-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 7px;border-radius:999px;background:#f1f5f9;font-weight:700}
+.category-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8}
+.month-box{width:100%;min-height:38px;display:grid;gap:2px;align-content:center;padding:6px;border-radius:8px;cursor:pointer}
+.month-box strong{font-size:12px}.month-box small{font-size:10px;text-transform:capitalize;color:var(--muted)}
+.month-box.pago,.month-box.recebido{background:#ecfdf5}.month-box.pendente{background:#fffbeb}
+.month-box.atrasado{background:#fef2f2;color:#991b1b}.month-box.cancelado{opacity:.55;text-decoration:line-through}
+.empty-month{justify-content:center;color:#b7c0cd}
+.total-label{justify-content:flex-end;font-weight:700;background:#eef2f7}
+.total-cell{font-weight:700;background:#eef2f7}
+.list-table{width:100%;border-collapse:collapse}
+.list-table th,.list-table td{padding:11px 10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
+.list-table th{background:#f8fafc}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.mini-btn{padding:6px 9px;border:0;border-radius:8px;cursor:pointer;font-weight:700}
+.mini-btn.edit{background:#dbeafe;color:#1d4ed8}.mini-btn.delete{background:#fee2e2;color:#b91c1c}
+.card-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px}
+.info-card{padding:16px;border:1px solid var(--border);border-radius:14px;background:#fff}
+.info-card h3{margin:0 0 8px}.info-card p{margin:5px 0;color:var(--muted)}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:rgba(15,23,42,.58)}
+.modal[hidden]{display:none}
+.modal-card{width:min(780px,100%);max-height:92vh;overflow:auto;padding:20px;background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(15,23,42,.25)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modal-header h2{margin:0}
+.icon-btn{width:38px;height:38px;border:0;border-radius:10px;background:#edf2f7;font-size:24px;cursor:pointer}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.form-grid label{display:grid;gap:6px;color:#475569;font-size:13px;font-weight:700}
+.span-2{grid-column:1/-1}.form-actions{display:flex;gap:10px;justify-content:flex-end}.spacer{flex:1}
+.msg{padding:18px;color:var(--muted)}
+@media(max-width:1200px){
+  .toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .card-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  :root{--sidebar:0px}
+  .sidebar{position:static;width:100%;display:flex;gap:6px;overflow:auto;padding:8px;border-right:0;border-bottom:1px solid var(--border)}
+  .brand{display:none}.nav{min-width:max-content;margin:0}
+  .main{margin-left:0}.topbar{position:static;flex-direction:column;align-items:flex-start;padding:14px}
+  .topbar-actions{width:100%;justify-content:space-between}
+  #app{padding:10px}.toolbar,.summary-grid,.form-grid,.card-list{grid-template-columns:1fr}
+  .span-2{grid-column:auto}.planner-viewport{max-height:none}
+}
+/* ==================================================
+   AJUSTE VISUAL DA PLANILHA — v0.3.1
+================================================== */
+
+/* LARGURAS MAIS COMPACTAS */
+
+.planner-grid {
+    grid-template-columns:
+        46px
+        62px
+        110px
+        165px
+        68px
+        repeat(12, 126px) !important;
+}
+
+/* NOVAS POSIÇÕES DAS COLUNAS FIXAS */
+
+.c0 {
+    left: 0 !important;
+}
+
+.c1 {
+    left: 46px !important;
+}
+
+.c2 {
+    left: 108px !important;
+}
+
+.c3 {
+    left: 218px !important;
+}
+
+.c4 {
+    left: 383px !important;
+}
+
+/* COLUNAS FIXAS COM FUNDO SUAVE */
+
+.row-fixed {
+    background: #f4f7fb !important;
+}
+
+.cell.fixed {
+    background: #f4f7fb;
+}
+
+.header-cell.fixed {
+    background: #26354f !important;
+}
+
+/* SEPARAÇÃO ENTRE COLUNAS FIXAS E MESES */
+
+.c4 {
+    border-right: 2px solid #cbd5e1 !important;
+
+    box-shadow:
+        6px 0 12px rgba(15, 23, 42, 0.10) !important;
+}
+
+/* CÉLULAS MAIS COMPACTAS */
+
+.cell {
+    min-height: 46px !important;
+    padding: 6px !important;
+    font-size: 11px !important;
+}
+
+.header-cell {
+    min-height: 44px !important;
+    font-size: 11px !important;
+}
+
+/* DESCRIÇÃO */
+
+.cell.c3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* CATEGORIAS */
+
+.category-chip {
+    max-width: 100%;
+
+    padding: 4px 6px !important;
+
+    overflow: hidden;
+
+    font-size: 10px !important;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.category-dot {
+    flex: 0 0 auto;
+
+    width: 7px !important;
+    height: 7px !important;
+}
+
+/* CÉLULAS DOS MESES */
+
+.month-box {
+    min-height: 36px !important;
+
+    padding: 5px 7px !important;
+
+    border: 1px solid transparent;
+    border-radius: 8px !important;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.month-box:hover {
+    transform: translateY(-1px);
+
+    border-color: #94a3b8;
+
+    box-shadow:
+        0 4px 10px rgba(15, 23, 42, 0.10);
+}
+
+.month-box strong {
+    font-size: 11px !important;
+}
+
+.month-box small {
+    font-size: 9px !important;
+}
+
+/* CORES DOS STATUS */
+
+.month-box.pago,
+.month-box.recebido {
+    background: #e8f8ef !important;
+    color: #166534;
+}
+
+.month-box.pendente {
+    background: #fff8dc !important;
+    color: #854d0e;
+}
+
+.month-box.atrasado {
+    background: #fdecec !important;
+    color: #991b1b;
+}
+
+/* TOTAIS MAIS DISCRETOS */
+
+.total-label,
+.total-cell {
+    min-height: 40px !important;
+
+    background: #e9eef5 !important;
+
+    font-size: 10px !important;
+}
+
+.total-label {
+    color: #334155;
+}
+
+/* PAINEL OCUPANDO MAIS ESPAÇO */
+
+#app {
+    padding: 12px !important;
+}
+
+.panel-header {
+    padding: 11px 14px !important;
+}
+
+.panel-header h2 {
+    font-size: 17px !important;
+}
+
+.planner-viewport {
+    max-height: calc(100vh - 280px) !important;
+}
+
+/* MENU LATERAL UM POUCO MENOR */
+
+:root {
+    --sidebar: 195px;
+}
+
+.sidebar {
+    padding: 15px 9px !important;
+}
+
+.brand {
+    padding: 7px 8px 18px !important;
+    font-size: 17px !important;
+}
+
+.nav {
+    min-height: 41px !important;
+    padding: 9px 10px !important;
+    font-size: 13px !important;
+}
+
+/* TELAS MENORES */
+
+@media (max-width: 1100px) {
+
+    :root {
+        --sidebar: 180px;
+    }
+}
+/* ==================================================
+   CORREÇÃO DAS LINHAS DE TOTAIS
+================================================== */
+
+.total-label-wide {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 16 !important;
+
+    grid-column: span 5;
+
+    min-height: 40px !important;
+    padding: 7px 12px !important;
+
+    justify-content: flex-end !important;
+
+    background: #e3e9f1 !important;
+    color: #334155;
+
+    border-right: 2px solid #cbd5e1 !important;
+
+    box-shadow:
+        6px 0 10px rgba(15, 23, 42, 0.08);
+
+    font-size: 11px !important;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.total-cell {
+    min-height: 40px !important;
+    padding: 7px 8px !important;
+
+    background: #edf2f7 !important;
+
+    font-size: 11px !important;
+    white-space: nowrap;
+}
+
+/* Mensagem quando a grade estiver vazia */
+
+.empty-state-grid {
+    grid-column: 1 / -1;
+
+    min-height: 72px !important;
+
+    justify-content: center !important;
+
+    background: #ffffff !important;
+    color: #94a3b8;
+
+    font-size: 13px !important;
+    text-align: center;
+}
+/* RECORRÊNCIAS NA PLANILHA */
+
+.descricao-linha {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 5px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge-recorrencia {
+    flex: 0 0 auto;
+
+    width: 17px;
+    height: 17px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dbeafe;
+    color: #1d4ed8;
+
+    border-radius: 50%;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.month-box[data-recorrencia-id] {
+    border: 1px dashed #93c5fd;
+}
+/* GRUPOS DA PLANILHA */
+
+.grupo-planejamento {
+    grid-column: 1 / -1;
+
+    min-height: 34px !important;
+    padding: 7px 12px !important;
+
+    font-size: 11px !important;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.grupo-entradas {
+    background: #e9f8ef !important;
+    color: #166534;
+}
+
+.grupo-saidas {
+    background: #eef3fa !important;
+    color: #334155;
+}
+
+/* RESERVA */
+
+.summary-card.reserva,
+.summary-card.reserva-projetada {
+    width: 100%;
+
+    text-align: left;
+
+    border: 1px solid #bae6d3;
+    border-left: 5px solid #0f9f6e;
+
+    cursor: pointer;
+}
+
+.summary-card.reserva {
+    font-family: inherit;
+}
+
+.summary-card.reserva small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #64748b;
+    font-size: 9px;
+}
+
+.summary-card.reserva-projetada {
+    border-left-color: #14b8a6;
+    cursor: default;
+}
+
+.linha-reserva {
+    background: #e8f7f4 !important;
+    color: #0f766e;
+    font-weight: 800 !important;
+}
+
+/* ==================================================
+   MÓDULO SALÁRIO v0.5.0
+================================================== */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.salary-sidebar-card {
+    margin-top: auto;
+    padding: 12px 10px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 12px;
+    background: rgba(255,255,255,.08);
+    color: #fff;
+}
+
+.salary-sidebar-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.salary-sidebar-month,
+.salary-sidebar-label {
+    margin-top: 5px;
+    font-size: 10px;
+    opacity: .76;
+}
+
+.salary-sidebar-card strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 17px;
+}
+
+.salary-sidebar-link {
+    width: 100%;
+    margin-top: 9px;
+    padding: 7px 8px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.salary-preview {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.salary-preview div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.salary-preview span {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.salary-preview strong {
+    font-size: 15px;
+}
+
+.salary-preview-net {
+    color: #166534;
+}
+
+.salary-history-table th,
+.salary-history-table td {
+    white-space: nowrap;
+}
+
+.salary-net-cell {
+    color: #166534;
+    font-weight: 800;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 6px;
+}
+
+@media (max-width: 760px) {
+    .salary-sidebar-card { display: none; }
+    .salary-preview { grid-template-columns: 1fr; }
+    .salary-history-header { align-items: flex-start; gap: 10px; }
+}
+
+
+/* ==================================================
+   AJUSTES v0.5.1 — CARDS, PAINEL SALÁRIO E PREVISÃO
+================================================== */
+.planning-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.planning-summary-grid .summary-card {
+    min-height: 92px;
+    padding: 15px 16px;
+}
+
+.salary-sidebar-card {
+    margin-top: auto;
+    padding: 12px 10px;
+    border: 1px solid #d9e1eb;
+    border-radius: 12px;
+    background: #f4f7fb;
+    color: #172033;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, .06);
+}
+
+.salary-sidebar-month,
+.salary-sidebar-label {
+    color: #64748b;
+    opacity: 1;
+}
+
+.salary-sidebar-card strong {
+    color: #166534;
+}
+
+.salary-sidebar-link {
+    background: #e2e8f0;
+    color: #1e3a5f;
+}
+
+.salary-sidebar-link:hover {
+    background: #d7e0eb;
+}
+
+@media (max-width: 1200px) {
+    .planning-summary-grid {
+        grid-template-columns: repeat(4, minmax(150px, 1fr));
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 760px) {
+    .planning-summary-grid {
+        grid-template-columns: 1fr;
+        overflow-x: visible;
+    }
+}
+
+
+/* ==================================================
+   AJUSTES v0.5.2 — EDIÇÃO RÁPIDA DO SALÁRIO
+================================================== */
+.sidebar {
+    overflow-y: auto;
+}
+
+.salary-sidebar-card {
+    flex: 0 0 auto;
+    padding: 11px 10px;
+}
+
+.salary-sidebar-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 9px;
+}
+
+.salary-sidebar-fields label {
+    display: grid;
+    gap: 3px;
+    color: #64748b;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.salary-sidebar-fields input {
+    min-width: 0;
+    min-height: 31px;
+    padding: 5px 6px;
+    border-radius: 7px;
+    font-size: 11px;
+}
+
+.salary-sidebar-calculation {
+    display: grid;
+    gap: 5px;
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px solid #d9e1eb;
+}
+
+.salary-sidebar-calculation > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.salary-sidebar-calculation span {
+    color: #64748b;
+    font-size: 9px;
+}
+
+.salary-sidebar-calculation strong {
+    display: inline;
+    margin: 0;
+    color: #172033;
+    font-size: 11px;
+    text-align: right;
+}
+
+.salary-sidebar-calculation .salary-sidebar-net strong {
+    color: #166534;
+    font-size: 14px;
+}
+
+.salary-sidebar-save,
+.salary-sidebar-link {
+    width: 100%;
+    min-height: 32px;
+    margin-top: 7px;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.salary-sidebar-save {
+    background: #2563eb;
+    color: #fff;
+}
+
+.salary-sidebar-save:hover {
+    background: #1d4ed8;
+}
+
+.salary-sidebar-save:disabled {
+    cursor: wait;
+    opacity: .7;
+}
+
+@media (max-height: 760px) and (min-width: 761px) {
+    .sidebar {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .brand {
+        padding-bottom: 10px;
+    }
+    .nav {
+        min-height: 36px;
+        margin-bottom: 3px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+    .salary-sidebar-card {
+        margin-top: 8px;
+    }
+}
+
+/* v0.5.3 — lançamento rápido */
+.launch-quick-form {
+    max-width: 620px;
+}
+
+.choice-field {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+.choice-field legend {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.choice-buttons {
+    display: grid;
+    gap: 10px;
+}
+
+.choice-buttons.two-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.choice-buttons.payment-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choice-button {
+    position: relative;
+    cursor: pointer;
+}
+
+.choice-button input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.choice-button span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--border, #d8dee8);
+    border-radius: 10px;
+    background: #fff;
+    font-weight: 600;
+    text-align: center;
+    transition: 0.15s ease;
+}
+
+.choice-button input:checked + span {
+    border-color: var(--primary, #2563eb);
+    background: rgba(37, 99, 235, 0.10);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.choice-button input:focus-visible + span {
+    outline: 2px solid var(--primary, #2563eb);
+    outline-offset: 2px;
+}
+
+.launch-quick-form small {
+    color: var(--muted, #64748b);
+    font-weight: 400;
+}
+
+@media (max-width: 640px) {
+    .choice-buttons.payment-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* v0.5.4 — faturas e salário simplificado */
+.card-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.invoice-toolbar { display:flex; align-items:end; justify-content:center; gap:10px; margin-bottom:16px; }
+.invoice-toolbar label { min-width:180px; }
+.invoice-total { margin-bottom:16px; }
+.invoice-total strong { font-size:1.35rem; }

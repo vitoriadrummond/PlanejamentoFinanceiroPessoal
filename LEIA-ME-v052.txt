@@ -1,0 +1,17 @@
+ATUALIZAÇÃO v0.5.2
+
+Arquivos para substituir/adicionar no GitHub:
+- index.html
+- css/style.css
+- js/planejamento.js
+- js/salario.js
+
+Principais ajustes:
+- O card lateral do salário agora permite preencher dias trabalhados, horas extras, impostos e Contabilizei.
+- Horas totais, salário bruto e líquido são recalculados em tempo real.
+- O botão Salvar grava os dados do mês e atualiza imediatamente o Planejamento.
+- O botão Histórico abre a página Salário.
+- O saldo previsto passa a considerar corretamente o salário líquido.
+- A previsão permanece estendida até dezembro de 2032.
+
+Após publicar, use Ctrl + Shift + R no navegador.

@@ -1,0 +1,24 @@
+ATUALIZAÇÃO v0.5.0 — MÓDULO SALÁRIO
+
+Arquivos para substituir/adicionar:
+- index.html
+- css/style.css
+- js/app.js
+- js/planejamento.js
+- js/storage.js
+- js/recorrencias.js
+- js/salario.js (novo)
+
+Inclui:
+- página Salário com cadastro, edição, exclusão e histórico mensal;
+- cálculo: horas totais = dias trabalhados x 8 + horas extras;
+- salário bruto = horas totais x valor da hora;
+- salário líquido = bruto - impostos - Contabilizei;
+- resumo do mês atual no rodapé do menu lateral;
+- salário líquido integrado às entradas do Planejamento;
+- dados salariais removidos da grade principal para mantê-la mais limpa;
+- correções anteriores de reserva e exclusão de recorrências mantidas.
+
+Banco de dados:
+Não é necessário criar nova tabela. Os dados continuam na tabela configuracoes,
+nas chaves dadosSalarioMensal e valorHoraTrabalho.

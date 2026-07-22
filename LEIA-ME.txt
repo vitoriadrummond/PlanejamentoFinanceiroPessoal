@@ -1,0 +1,20 @@
+ATUALIZAÇÃO v0.4.5 — RESERVA, RECORRÊNCIAS E CÁLCULO DE SALÁRIO
+
+Substitua no projeto os arquivos da pasta js:
+- planejamento.js
+- storage.js
+- recorrencias.js
+
+Novidades:
+1. Correção da exclusão de recorrências.
+2. Reserva descontada do saldo do mês sem ser tratada como despesa comum.
+3. Área mensal “DADOS DO SALÁRIO” no Planejamento.
+4. Preenchimento manual por mês: dias trabalhados, horas extras, impostos e Contabilizei.
+5. Cálculos automáticos:
+   Horas totais = (dias trabalhados × 8) + horas extras
+   Salário bruto = horas totais × valor da hora
+   Salário líquido = salário bruto − impostos − Contabilizei
+6. Apenas o salário líquido entra nas Entradas previstas e no saldo.
+7. Valor da hora começa em R$ 110,00 e pode ser alterado no formulário.
+
+Não é necessário criar nova tabela no Supabase. Os dados do salário são salvos na tabela configuracoes já utilizada pelo projeto.
