@@ -152,11 +152,18 @@ function atualizarResumoSalarioLateral(competencia = competenciaAtualSalario(), 
             <label>Horas extras<input id="salarioLateralExtras" type="number" min="0" step="0.01" value="${calculado.horasExtras}"></label>
         </div>
         <div class="salary-sidebar-results">
-            <div><span>Horas totais</span><strong id="salarioLateralHorasTotais">${calculado.horasTotais.toLocaleString("pt-BR")} h</strong></div>
-            <div><span>Salário bruto</span><strong id="salarioLateralBruto">${moeda(calculado.salarioBruto)}</strong></div>
-        </div>
-        <button id="btnSalvarSalarioLateral" type="button" class="salary-sidebar-save">Salvar</button>
-        <button type="button" class="salary-sidebar-link" onclick="navegar('salario')">Histórico</button>
+    <div class="salary-result-card">
+        <span>Horas totais</span>
+        <strong id="salarioLateralHorasTotais">${calculado.horasTotais.toLocaleString("pt-BR")} h</strong>
+    </div>
+
+    <div class="salary-result-card">
+        <span>Salário bruto</span>
+        <strong id="salarioLateralBruto">${moeda(calculado.salarioBruto)}</strong>
+    </div>
+</div>
+
+<button id="btnSalvarSalarioLateral" type="button" class="salary-sidebar-save">Salvar</button>
     `;
 
     ["salarioLateralDias", "salarioLateralExtras"].forEach(id =>
