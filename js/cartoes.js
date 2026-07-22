@@ -1,3 +1,13 @@
+function formatarData(data) {
+  if (!data) return "—";
+
+  const valor = String(data).slice(0, 10);
+  const partes = valor.split("-");
+
+  if (partes.length !== 3) return valor;
+
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
 function abrirModalCartao(id=null){
   const i=id?estado.cartoes.find(x=>x.id===id):null;
   abrirModal(i?'Editar cartão':'Novo cartão',`
